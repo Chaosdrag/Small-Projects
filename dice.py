@@ -1,24 +1,29 @@
 import random
 
 
-def dice(x, y):
-    dice1 = random.choice(x)
-    dice2 = random.choice(y)
-    return dice1, dice2, dice1+dice2
+def dice(diceNum):
+    rolls = [random.choice([1, 2, 3, 4, 5, 6]) for _ in range(diceNum)]
+    total = sum(rolls)
+    return rolls, total
 
 
-x = [1, 2, 3, 4, 5, 6]
-y = [1, 2, 3, 4, 5, 6]
-
+count = 0
 
 while True:
 
     play = input('Roll the dice? (y/n) :')
-
     if play == 'y':
-        dice1, dice2, total = dice(x, y)
-        print((dice1, dice2), total)
-
+        count += 1
+        try:
+            diceNum = int(input('How many dice? :'))
+            if diceNum < 1:
+                print('Invalid input! Please enter a number greater than 0')
+                continue
+            rolls, total = dice(diceNum)
+            print(rolls, total)
+            print(count)
+        except ValueError:
+            print('Invalid input! Please enter a number')
     elif play == 'n':
         print('Goodbye!')
         break
