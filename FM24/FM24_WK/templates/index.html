@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Player Search App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+        input,
+        select {
+            margin-right: 10px;
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Search Players</h1>
+
+    <!-- Search Form: Allows users to filter player details -->
+    <form method="GET" action="/">
+        <!-- Search by player name or club -->
+        <label>Search (Name/Club): <input type="text" name="query" value="{{ query }}"></label>
+
+        <!-- Search by position -->
+        <label>Position: <input type="text" name="position" value="{{ position }}"></label>
+
+        <!-- Search by exact potential (star rating) -->
+        <label>Potential: <input type="number" name="potential" value="{{ potential }}"></label>
+
+        <!-- Search by exact age -->
+        <label>Age: <input type="number" name="age" value="{{ age }}"></label>
+
+        <!-- Sort results by selected attribute -->
+        <label>Sort By:
+            <select name="sort_by">
+                <option value="Name" {% if sort_by=='Name' %}selected{% endif %}>Name</option>
+                <option value="Club" {% if sort_by=='Club' %}selected{% endif %}>Club</option>
+                <option value="Position" {% if sort_by=='Position' %}selected{% endif %}>Position</option>
+                <option value="Wage" {% if sort_by=='Wage' %}selected{% endif %}>Wage</option>
+                <option value="Cost" {% if sort_by=='Cost' %}selected{% endif %}>Cost</option>
+                <option value="Potential" {% if sort_by=='Potential' %}selected{% endif %}>Potential</option>
+                <option value="Age" {% if sort_by=='Age' %}selected{% endif %}>Age</option>
+            </select>
+        </label>
+
+        <!-- Submit search form -->
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- Display player data in a table format -->
+    <table>
+        <thead>
+            <tr>
+                <th>Name (Age)</th>
+                <th>Club</th>
+                <th>Position</th>
+                <th>Wage</th>
+                <th>Cost</th>
+                <th>Expiry</th>
+                <th>Potential</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Populate the table with player data -->
+            {% for player in players %}
+            <tr>
+                <td>{{ player.Name }} ({{ player.Age }})</td>
+                <td>{{ player.Club }}</td>
+                <td>{{ player.Position }}</td>
+                <td>{{ player.Wage }}</td>
+                <td>{{ player.Cost }}</td>
+                <td>{{ player.Expiry }}</td>
+                <td>{{ player.Potential }} Stars</td>
+            </tr>
+            {% else %}
+            <!-- Display message if no players are found -->
+            <tr>
+                <td colspan="7">No players found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+
+</html>
