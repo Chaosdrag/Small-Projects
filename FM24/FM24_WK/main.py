@@ -1,6 +1,6 @@
 import os
-from bs4 import BeautifulSoup
 import re
+from bs4 import BeautifulSoup
 from flask import Flask, render_template, request
 
 # initialize Flask app
@@ -22,7 +22,7 @@ def extract_stars(cell):
 
 
 # directory containing HTML files
-html_folder = 'FM24/FM24_WK/'
+html_folder = 'HelloWorld\FM24\FM24_WK'
 
 # to parse HTML files and collect player data
 
